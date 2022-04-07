@@ -1,0 +1,198 @@
+
+
+var line1 = createSprite (198,172,250,7)
+var line2 = createSprite (199,320,250,7)
+var line3 = createSprite (68,189,7,50)
+var line4 = createSprite (46,219,57,7)
+var line5 = createSprite (19,246,7,50)
+var line6 = createSprite (46,270,62,8)
+var line7 = createSprite (73,296,7,50)
+var line8 = createSprite (329,298,8,50)
+var line9 = createSprite (354,269,60,8)
+var line10 = createSprite (382,244,8,56)
+var line11 = createSprite (358,216,55,10)
+var line12 = createSprite (327,193,8,50)
+var FinishLine = createSprite (352,242,40,40)
+FinishLine.shapeColor = ("green")
+var Deaths = +0
+var GameState = "serve";
+var lifeover
+var StartPoint = createSprite (46,244,40,40)
+
+StartPoint.shapeColor = "Black"
+// create the player block ;
+var playerBlock = createSprite (50,243,17,20);
+playerBlock.shapeColor = "blue";
+//create blocks that can manuever the objects move up & down.
+
+
+var brick1 = createSprite (117,183,10,12);
+brick1.velocityY = 6;
+brick1.shapeColor = ("red");
+var brick2 = createSprite (170,307,10,12);
+brick2.velocityY = 6;
+brick2.shapeColor = ("red");
+var brick3 = createSprite (222,183,10,12);
+brick3.shapeColor = ("red");
+brick3.velocityY = 6;
+var brick4 = createSprite (278,307,10,12);
+brick4.shapeColor = "red";
+brick4.velocityY = 6;
+
+
+function gameplay(){
+
+
+
+
+brick1.bounceOff(line2)
+brick1.bounceOff(line1)
+
+brick2.bounceOff(line1)
+brick2.bounceOff(line2)
+
+brick3.bounceOff(line2)
+brick3.bounceOff(line1)
+
+brick4.bounceOff(line1)
+brick4.bounceOff(line2) 
+
+ 
+ 
+if(keyDown("RIGHT_ARROW")){
+//playerBlock.x = playerBlock.x5
+playerBlock.x = playerBlock.x+2
+}
+if(keyDown("LEFT_ARROW")){
+playerBlock.x = playerBlock.x-2
+
+}
+}
+ 
+ 
+ 
+function draw() {
+ background("white")
+textSize(20)
+text("Deaths: "+Deaths,123,80)
+
+
+if(GameState == "serve"){
+text("Click To Start The Game.", 100,245)
+brick1.velocityY =0
+brick2.velocityY =0
+brick3.velocityY =0
+brick4.velocityY =0
+brick1.x = 117
+brick1.y = 183
+
+brick2.x = 170
+brick2.y = 307
+
+brick3.x = 222
+brick3.y = 183
+
+brick4.x = 278
+brick4.y = 307
+}
+else if(GameState =="end"){
+  lifeover()
+text("Game Over", 182,190)
+playerBlock.remove
+}
+
+
+else {
+ 
+
+gameplay()
+
+
+}
+
+
+ 
+
+brick1.bounceOff(line2)
+brick1.bounceOff(line1)
+
+brick2.bounceOff(line1)
+brick2.bounceOff(line2)
+
+brick3.bounceOff(line2)
+brick3.bounceOff(line1)
+
+brick4.bounceOff(line1)
+brick4.bounceOff(line2)
+
+function mousePressed(){
+  brick1.velocityY = 6
+  brick2.velocityY = 6
+  brick3.velocityY = 6
+  brick4.velocityY = 6
+  
+if(GameState == "serve"){
+
+GameState = "play";
+
+brick1.velocityY = 6;
+brick2.velocityY = 6;
+brick3.velocityY = 6;
+brick4.velocityY = 6;
+
+
+}
+}
+  
+
+
+
+
+
+ 
+if(playerBlock.isTouching(FinishLine))
+ playerBlock.x = 40
+if(playerBlock.isTouching(brick1)||playerBlock.isTouching(brick2)|| playerBlock.isTouching(brick3)||playerBlock.isTouching(brick4))
+Deaths =+1;
+
+
+
+
+
+playerBlock.x = 40
+drawSprites();
+}
+
+ 
+function mousePressed(){
+  brick1.velocityY = 6
+  brick2.velocityY = 6
+  brick3.velocityY = 6
+  brick4.velocityY = 6
+  
+if(GameState == "serve"){
+
+GameState = "play";
+
+brick1.velocityY = 6;
+brick2.velocityY = 6;
+brick3.velocityY = 6;
+brick4.velocityY = 6;
+
+
+}
+}
+function lifeover(){
+ Deaths = Deaths+1
+ 
+  if(Deaths>=1) {
+    GameState = "serve";
+  }
+  else {
+    GameState = "end";
+   
+  }
+}
+ 
+
+
